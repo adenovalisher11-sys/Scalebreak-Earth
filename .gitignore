@@ -1,0 +1,20 @@
+# environment
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# re-downloadable data (recreated by the scripts on first run)
+data/cache/
+data/cache_icesat/
+data/cache_modis/
+data/cache_s1/
+data/cache_s2/
+data/cache_takyr/
+data/tes/
+data/certs/
+data/airports.csv
+
+# report build intermediates
+report/img/frames/
+report/preview.html

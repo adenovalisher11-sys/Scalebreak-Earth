@@ -1,0 +1,42 @@
+# Thermal inertia by rank: Mars TES vs Earth MODIS ATI
+
+Mars random pool: 5000 TES pixels, median TI 201 SI.
+
+| Mars landing site | TES TI (SI) | > 100 load-bearing | 350-600 heavy-lander | percentile on Mars |
+|---|---|---|---|---|
+| Jezero (Perseverance) | 316 | yes | no | 94 |
+| Gale (Curiosity) | 364 | yes | yes | 98 |
+| Meridiani (Opportunity) | 190 | yes | no | 44 |
+| Gusev (Spirit) | 262 | yes | no | 81 |
+| Elysium (InSight) | 223 | yes | no | 62 |
+| Chryse (Viking 1) | 284 | yes | no | 88 |
+| Utopia (Viking 2) | 256 | yes | no | 79 |
+| Ares Vallis (Pathfinder) | 397 | yes | yes | 99 |
+| Utopia (Zhurong) | 259 | yes | no | 80 |
+| Top settlement site (paper 21) | 262 | yes | no | 81 |
+
+Mars landing sites span percentiles 44-99 of their planet (median 81).
+
+| Kazakh site | ATI | percentile among Earth arid controls | inside the Mars landing-site band |
+|---|---|---|---|
+| Inder salt dome | 0.033 | 100 | no |
+| Charyn canyon | 0.031 | 100 | no |
+| Bigach crater | 0.029 | 97 | yes |
+| Shunak crater | 0.028 | 97 | yes |
+| Semipalatinsk (Balapan) | 0.028 | 97 | yes |
+| Caspian lowland (Ryn) | 0.028 | 97 | yes |
+| Chiyli crater | 0.028 | 95 | yes |
+| Zhamanshin crater | 0.027 | 92 | yes |
+| Soyuz zone (Zhezkazgan) | 0.024 | 69 | yes |
+| Soyuz zone (Arkalyk) | 0.025 | 69 | yes |
+| Betpak-Dala | 0.024 | 54 | yes |
+| Mangystau (Bozzhyra) | 0.022 | 46 | yes |
+| Altyn-Emel (Aktau) | 0.022 | 36 | no |
+| Kyzylkum (Kazakh part) | 0.021 | 31 | no |
+| Aralkum (dry Aral bed) | 0.020 | 23 | no |
+| Ustyurt plateau | 0.018 | 5 | no |
+
+10 of 16 Kazakh sites fall inside the percentile band of Mars landing sites. Percentile distributions Kazakhstan vs Mars landing sites: two-sided p = 0.73 (high p = no evidence they differ).
+
+Where it breaks: ATI is driven by soil moisture and vegetation (paper 11); Mars TI by grain size and atmospheric pressure. Matching percentiles means 'same position in the planet's range', not the same physics.
+

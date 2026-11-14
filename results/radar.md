@@ -1,0 +1,35 @@
+# Radar roughness: Sentinel-1 RTC gamma0 VV, dry season 2023 (2021 where no 2023 scene), 1 km box
+
+Kazakhstan median -14.6 dB vs controls -13.0 dB (two-sided p = 0.36); no data: []
+
+| site | group | VV dB | VH dB | rougher than % of controls | scene |
+|---|---|---|---|---|---|
+| Mojave (Pisgah) | reference | -9.6 | -17.6 | 92 | 2023-08-24 |
+| Atacama (Yungay) | reference | -9.7 | -17.7 | 92 | 2023-09-28 |
+| Meteor Crater, AZ | reference | -10.1 | -18.1 | 85 | 2023-08-21 |
+| Black Point (D-RATS), AZ | reference | -10.1 | -19.6 | 85 | 2023-08-21 |
+| Charyn canyon | kazakhstan | -10.3 | -17.5 | 85 | 2023-08-30 |
+| Mangystau (Bozzhyra) | kazakhstan | -10.8 | -19.3 | 85 | 2023-08-30 |
+| Altyn-Emel (Aktau) | kazakhstan | -11.0 | -18.6 | 85 | 2023-08-30 |
+| Kilauea (Kau desert) | reference | -11.2 | -20.1 | 79 | 2023-08-28 |
+| Bigach crater | kazakhstan | -11.5 | -18.8 | 77 | 2023-08-25 |
+| Wadi Rum | reference | -11.6 | -17.1 | 74 | 2023-08-25 |
+| Salar de Uyuni (smooth reference) | reference | -12.5 | -22.1 | 59 | 2023-09-29 |
+| Shunak crater | kazakhstan | -13.5 | -23.2 | 46 | 2021-08-29 |
+| MDRS Hanksville, UT | reference | -14.1 | -23.4 | 38 | 2023-08-21 |
+| Soyuz zone (Arkalyk) | kazakhstan | -14.3 | -23.0 | 38 | 2021-08-08 |
+| Inder salt dome | kazakhstan | -14.5 | -21.3 | 38 | 2021-08-24 |
+| Qaidam (Lenghu) | reference | -14.6 | -21.5 | 36 | 2023-08-29 |
+| Semipalatinsk (Balapan) | kazakhstan | -14.6 | -22.4 | 36 | 2021-08-26 |
+| Caspian lowland (Ryn) | kazakhstan | -14.6 | -19.6 | 36 | 2021-08-29 |
+| White Sands, NM | reference | -14.9 | -20.4 | 28 | 2023-08-30 |
+| Betpak-Dala | kazakhstan | -15.2 | -21.3 | 26 | 2023-08-30 |
+| Kyzylkum (Kazakh part) | kazakhstan | -15.3 | -21.0 | 26 | 2023-08-29 |
+| Soyuz zone (Zhezkazgan) | kazakhstan | -15.6 | -21.8 | 23 | 2023-08-26 |
+| Zhamanshin crater | kazakhstan | -16.0 | -23.5 | 23 | 2021-08-30 |
+| Chiyli crater | kazakhstan | -17.1 | -25.0 | 18 | 2021-08-28 |
+| Aralkum (dry Aral bed) | kazakhstan | -17.5 | -21.9 | 18 | 2023-08-27 |
+| Ustyurt plateau | kazakhstan | -17.6 | -25.4 | 13 | 2023-08-30 |
+| Makgadikgadi pans | reference | -17.8 | -23.9 | 13 | 2021-09-24 |
+
+Where it breaks: backscatter also rises with soil moisture and sparse shrubs; C-band (5.6 cm) on Earth vs S-band Mini-RF (12.6 cm) on the Moon, so only ranks can be compared.

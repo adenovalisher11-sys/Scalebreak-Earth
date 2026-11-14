@@ -1,0 +1,24 @@
+# NASADEM (NASA) vs AW3D30 (JAXA): median slope in degrees by baseline, 16 km box
+
+| site | baseline m | NASADEM | AW3D30 | ratio | verdict |
+|---|---|---|---|---|---|
+| Zhamanshin crater | 120 | 0.657 | 0.601 | 1.09 | agree (terrain) |
+| Zhamanshin crater | 240 | 0.565 | 0.563 | 1.00 | agree (terrain) |
+| Zhamanshin crater | 480 | 0.535 | 0.542 | 0.99 | agree (terrain) |
+| Zhamanshin crater | 960 | 0.503 | 0.509 | 0.99 | agree (terrain) |
+| Soyuz zone (Zhezkazgan) | 120 | 0.247 | 0.116 | 2.13 | disagree (noise-limited) |
+| Soyuz zone (Zhezkazgan) | 240 | 0.107 | 0.082 | 1.32 | disagree (noise-limited) |
+| Soyuz zone (Zhezkazgan) | 480 | 0.063 | 0.061 | 1.03 | agree (terrain) |
+| Soyuz zone (Zhezkazgan) | 960 | 0.048 | 0.051 | 0.95 | agree (terrain) |
+| Altyn-Emel (Aktau) | 120 | 1.460 | 1.446 | 1.01 | agree (terrain) |
+| Altyn-Emel (Aktau) | 240 | 1.312 | 1.307 | 1.00 | agree (terrain) |
+| Altyn-Emel (Aktau) | 480 | 1.199 | 1.186 | 1.01 | agree (terrain) |
+| Altyn-Emel (Aktau) | 960 | 1.105 | 1.098 | 1.01 | agree (terrain) |
+| Shunak crater | 120 | 2.009 | 1.990 | 1.01 | agree (terrain) |
+| Shunak crater | 240 | 1.836 | 1.823 | 1.01 | agree (terrain) |
+| Shunak crater | 480 | 1.570 | 1.591 | 0.99 | agree (terrain) |
+| Shunak crater | 960 | 1.357 | 1.329 | 1.02 | agree (terrain) |
+| Salar de Uyuni (flat reference) | 120 | 0.377 | 0.371 | 1.02 | agree (terrain) |
+| Salar de Uyuni (flat reference) | 240 | 0.124 | 0.127 | 0.97 | agree (terrain) |
+| Salar de Uyuni (flat reference) | 480 | 0.034 | 0.038 | 0.91 | agree (terrain) |
+| Salar de Uyuni (flat reference) | 960 | 0.010 | 0.011 | 0.92 | agree (terrain) |

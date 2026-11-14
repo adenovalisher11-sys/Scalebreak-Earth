@@ -1,0 +1,442 @@
+<title>Steppe to Mars</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* Layout: one 680px reading column, figures break out to 860px; everything else is quiet type. */
+:root{
+  --bg:#f5f5f2; --fg:#2e2e2e; --muted:#74746f; --soft:#4f4f4b; --rule:#dcdcd6; --panel:#ebebe6; color-scheme:light;
+  --link:#0056b3; --kz:#0b7a9e; --mars:#c0392b; --moon:#8a8f98; --ctrl:#c9c9c4; --ref:#b07d1a;
+  --serif:'EB Garamond',Garamond,'Times New Roman',serif;
+}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--serif);font-size:19px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:2rem 3rem}
+.col{max-width:680px;margin:0 auto}
+nav{margin-bottom:3rem;font-size:.95rem}
+nav a{text-decoration:none;color:var(--soft);font-weight:700}
+nav a:hover{text-decoration:underline}
+h1,h2,h3{font-family:var(--serif);line-height:1.2;text-wrap:balance}
+h1{font-size:2.2rem;margin:0 0 1rem}
+h2{font-size:1.6rem;margin:2.6rem 0 .6rem}
+a{color:var(--link)}
+.post-meta{color:var(--muted);font-size:.95rem;margin:-.25rem 0 2rem}
+.lede em{color:var(--soft)}
+strong{font-weight:700}
+blockquote{border-left:3px solid var(--rule);margin:1.5rem 0;padding-left:1rem;color:var(--soft)}
+blockquote p{margin:.4rem 0}
+figure{margin:2rem 0}
+figcaption{font-size:.9rem;color:var(--muted);font-style:italic;text-align:center;margin-top:.5rem}
+.wide{max-width:860px;margin-left:auto;margin-right:auto}
+img,video{max-width:100%;display:block}
+video{width:100%;border-radius:4px;background:#fdfdfd;mix-blend-mode:multiply}
+.figure-row{display:flex;gap:.5rem;align-items:center}
+.figure-row>div{flex:1;min-width:0}
+.figure-row img{width:100%;border-radius:4px}
+.figure-row .tag{font-size:.85rem;color:var(--muted);text-align:center;margin-top:.3rem}
+.zoom-arrow{color:var(--mars);font-size:1.4rem;flex:0 0 auto}
+.closing{text-align:center;font-size:1.3rem;margin:2.8rem 0}
+.note{font-size:.92rem;color:var(--muted)}
+.limit{font-size:.92rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:.5rem;margin-top:1rem}
+.num{font-variant-numeric:tabular-nums}
+
+/* before/after slider (same mechanics as the reference page) */
+.compare{--pos:50%;position:relative;overflow:hidden;border-radius:4px;user-select:none;max-width:640px;margin:0 auto;aspect-ratio:1/1}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.compare-label{position:absolute;top:.75rem;padding:.25rem .6rem;border-radius:4px;background:rgba(15,17,22,.75);color:#fff;font-size:.85rem;line-height:1.3;pointer-events:none}
+.compare-label.left{left:.75rem}.compare-label.right{right:.75rem}
+.compare-handle{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 6px rgba(0,0,0,.5);pointer-events:none}
+.compare-handle::after{content:"\2194";position:absolute;top:50%;left:50%;width:2.2rem;height:2.2rem;transform:translate(-50%,-50%);border-radius:50%;background:#fff;color:#222;font-size:1.1rem;line-height:2.2rem;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.4)}
+.compare input[type=range]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+.compare input[type=range]:focus-visible+.compare-handle{background:var(--link)}
+
+/* key numbers */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:1rem 0}
+.facts div{min-width:0}
+.facts b{display:block;font-size:2rem;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.facts span{font-size:.9rem;color:var(--muted);line-height:1.35;display:block}
+
+/* charts */
+.chart{position:relative;height:340px}
+.chart.short{height:300px}
+.toggle{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap;margin:.2rem 0 .6rem}
+.toggle button{font:inherit;font-size:.9rem;border:1px solid var(--rule);background:var(--bg);color:var(--soft);border-radius:999px;padding:.15rem .8rem;cursor:pointer}
+.toggle button[aria-pressed="true"]{border-color:var(--fg);color:var(--fg)}
+.toggle button:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+
+/* map */
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map img{width:100%;height:auto}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map .site{cursor:pointer;fill:var(--kz);stroke:#fff;stroke-width:2.5}
+.map .site:hover,.map .site.on{fill:#ffd23f;stroke:#222}
+.map .site:focus-visible{outline:none;stroke:#ffd23f;stroke-width:5}
+.map .soy{fill:#fff;opacity:.75}
+.panel{background:var(--panel);border-radius:4px;padding:1rem 1.2rem;margin-top:.8rem}
+.panel h3{margin:0 0 .5rem;font-size:1.25rem}
+.panel table{width:100%;border-collapse:collapse;font-size:.95rem}
+.panel td{padding:.3rem 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.panel td:last-child{text-align:right;white-space:nowrap;padding-left:1rem;font-variant-numeric:tabular-nums}
+.bar{height:5px;border-radius:3px;background:var(--kz);margin-top:.25rem}
+.sitepick{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
+.sitepick button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:var(--bg);color:var(--soft);border-radius:999px;padding:.1rem .65rem;cursor:pointer}
+.sitepick button.on{border-color:var(--kz);color:var(--kz)}
+
+/* scorecard table */
+.tablewrap{overflow-x:auto}
+table.score{border-collapse:collapse;width:100%;font-size:.95rem;min-width:520px}
+table.score th,table.score td{padding:.4rem .5rem;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+table.score th{font-weight:600;color:var(--soft);font-size:.85rem;letter-spacing:.02em}
+.pill{display:inline-block;font-size:.8rem;border-radius:999px;padding:0 .55rem;border:1px solid currentColor;white-space:nowrap}
+.pill.yes{color:var(--kz)}.pill.part{color:var(--ref)}.pill.next{color:var(--muted)}
+
+details{border-top:1px solid var(--rule);padding:.6rem 0}
+details summary{cursor:pointer;font-weight:600}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+
+.footnote-reference{font-size:.75em;line-height:0;margin-left:1px}
+.footnote-reference a{text-decoration:none}
+.footnotes{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.9rem;color:var(--muted)}
+.footnotes ol{margin:0;padding-left:1.2rem}
+.footnotes li{margin:.35rem 0}
+:target{scroll-margin-top:2rem}
+footer{margin-top:3rem;text-align:center;color:var(--muted);font-size:.9rem}
+@media (max-width:560px){
+  body{font-size:18px} h1{font-size:1.8rem}
+  .facts{grid-template-columns:1fr 1fr}
+  .chart{height:300px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="col">
+<nav><a href="https://www.spaceappschallenge.org/">&larr; NASA Space Apps 2026</a></nav>
+
+<h1>Is the Soyuz Landing Zone Good Practice Ground for Mars?</h1>
+<p class="post-meta">6 min read · Team Astana · 14 Nov 2026</p>
+
+<p>We live in Astana. A few hundred kilometres from us, in the steppe near Zhezkazgan, Soyuz capsules have been landing since the 1960s. For this hackathon we asked a simple question: is that steppe any good for practising Moon and Mars missions?</p>
+<p>Most analog sites people use are in the US, Iceland, Hawaii or Chile. Kazakhstan is rarely on the list. We wanted to check it with data instead of opinions.</p>
+</div>
+
+<figure class="wide">
+  <div class="compare" id="hero">
+    <img src="img/hero_mars.jpg" alt="Relief of Meridiani Planum, Mars, 32 km across">
+    <div class="compare-top"><img src="img/hero_kz.jpg" alt="Relief around Chiyli crater, Kazakhstan, 32 km across"></div>
+    <span class="compare-label left">Kazakhstan, Chiyli</span>
+    <span class="compare-label right">Mars, Opportunity landing site</span>
+    <input type="range" min="0" max="100" value="50" aria-label="Slide to compare Kazakhstan and Mars terrain">
+    <div class="compare-handle"></div>
+  </div>
+  <figcaption>Drag the slider. Both squares are 32 km wide, at the same resolution and shading.</figcaption>
+</figure>
+
+<div class="col">
+<div class="facts">
+  <div><b>0.12°</b><span>typical slope where Soyuz capsules land</span></div>
+  <div><b>72 K</b><span>difference between the hottest and coldest month on the ground</span></div>
+  <div><b>95 of 95</b><span>landing points flat enough for a lander</span></div>
+</div>
+
+<h2>How we checked</h2>
+<p>We used free satellite data from NASA, plus some from ESA, JAXA and the Canadian Space Agency. We picked 16 places in Kazakhstan and wrote code to measure them.</p>
+<p>To avoid fooling ourselves, the same code also measured:</p>
+<blockquote>
+  <p>real landing sites on Mars and the Moon,<br>
+  10 well-known analog sites, like Meteor Crater in Arizona,<br>
+  and 200 random points in deserts around the world.</p>
+</blockquote>
+<p>If Kazakhstan was no better than a random desert, we would see it.</p>
+
+<h2>The landing zone is very flat</h2>
+<p>We started with the Soyuz landings, because that is where real spacecraft come down. We found coordinates for 95 landings and measured how steep the ground is around each one<sup class="footnote-reference"><a href="#fn-1" id="fr-1">[1]</a></sup>.</p>
+</div>
+
+<figure class="wide">
+  <div class="chart"><canvas id="cLanding" aria-label="Slope by group"></canvas></div>
+  <figcaption>Each dot is one place. The blue dots, Soyuz landings, are the flattest group.</figcaption>
+</figure>
+
+<div class="col">
+<p>The landing points have a typical slope of 0.12°. Random spots in the same steppe have 0.29°. Mars landing sites have 0.84°. The difference is not luck<sup class="footnote-reference"><a href="#fn-2" id="fr-2">[2]</a></sup>.</p>
+<p>The elevation maps we used have 30 m pixels, so we checked again with a laser. NASA's ICESat-2 satellite measures the ground every 20 m. The result was the same: the landing zone is about twice as flat as the steppe around it.</p>
+</div>
+
+<figure class="wide">
+  <div class="toggle" role="group" aria-label="ICESat-2 metric">
+    <button type="button" aria-pressed="true" data-k="m">Typical slope</button>
+    <button type="button" aria-pressed="false" data-k="p">Steepest 1%</button>
+  </div>
+  <div class="chart short"><canvas id="cIce" aria-label="ICESat-2 slope by group"></canvas></div>
+  <figcaption>Laser measurements. Steep spots (over 5°) are 0.06% of the landing zone and 4–25% of the US analog sites.</figcaption>
+</figure>
+
+<div class="col">
+<p>This matters because rovers and landers need a lot of flat ground to practise on, and this zone has thousands of square kilometres of it. People who know how to recover spacecraft already work there.</p>
+
+<h2>Hot summers, cold winters, dark soil</h2>
+<p>Next we looked at temperature. Mars swings by about 100 K between day and night. Nowhere on Earth does that, but Kazakhstan's steppe swings a lot between seasons.</p>
+</div>
+
+<figure class="wide">
+  <div class="chart short"><canvas id="cMonthly" aria-label="Monthly ground temperature in Kazakhstan"></canvas></div>
+  <figcaption>Ground temperature at our 16 sites by month, 2023, from NASA's MODIS satellite.</figcaption>
+</figure>
+
+<div class="col">
+<p>From January nights to July afternoons, the ground changes by 72 K. Random deserts change by 54 K. Well-known analog sites change by 63 K.</p>
+<p>We also measured how much sunlight the ground reflects<sup class="footnote-reference"><a href="#fn-3" id="fr-3">[3]</a></sup>. Mars landing sites reflect 13–24%. Most of our Kazakh sites reflect about 19%, inside that range. Many famous analog sites are brighter.</p>
+</div>
+
+<figure class="wide">
+  <div class="chart"><canvas id="cThermal" aria-label="Temperature range against reflectivity"></canvas></div>
+  <figcaption>The red band is how much Mars landing sites reflect. Kazakhstan, in blue, sits in it and high up, with a large temperature range.</figcaption>
+</figure>
+
+<div class="col">
+<h2>An old crater</h2>
+<p>Kazakhstan has four known impact craters. The best kept one is Shunak: 2.8 km wide and 70 m deep.</p>
+</div>
+
+<figure class="wide">
+  <div class="compare" id="shunak" style="--pos:55%">
+    <img src="img/shunak_dem.jpg" alt="Relief of Shunak crater">
+    <div class="compare-top"><img src="img/shunak_s2.jpg" alt="Satellite photo of Shunak crater"></div>
+    <span class="compare-label left">Photo</span>
+    <span class="compare-label right">Relief</span>
+    <input type="range" min="0" max="100" value="55" aria-label="Slide to compare photo and relief of Shunak crater">
+    <div class="compare-handle"></div>
+  </div>
+  <figcaption>Shunak. In the photo it is hard to see. In the relief map the bowl is clear.</figcaption>
+</figure>
+
+<div class="col">
+<p>Gravity on Mars is weaker, so the same impact there would make a bigger crater, about 7 km. We compared Shunak with Zunil, a young Mars crater of similar class<sup class="footnote-reference"><a href="#fn-4" id="fr-4">[4]</a></sup>.</p>
+</div>
+
+<figure class="wide">
+  <div class="figure-row">
+    <div><img src="img/crater_shunak.jpg" alt="Shunak crater relief"><div class="tag">Shunak, Earth, 2.8 km</div></div>
+    <span class="zoom-arrow" aria-hidden="true">&rarr;</span>
+    <div><img src="img/crater_zunil.jpg" alt="Zunil crater relief, Mars"><div class="tag">Zunil, Mars, 10.4 km</div></div>
+  </div>
+  <figcaption>Shunak is old and partly filled in. It keeps about a quarter of the depth a fresh crater would have.</figcaption>
+</figure>
+
+<figure class="wide">
+  <video class="autoplay-in-view" src="shunak_3d.mp4" muted loop playsinline preload="metadata" aria-label="3D view of Shunak crater"></video>
+  <figcaption>Shunak in 3D. Height is stretched 4 times so the shape is easier to see.</figcaption>
+</figure>
+
+<div class="col">
+<h2>Salt and ice</h2>
+<p>On Mars, salt deposits show where water used to be. We used the ESA Sentinel-2 satellite to look for salty ground. Two places scored higher than every random desert: the shore of Lake Inder and the dry bottom of the Aral Sea.</p>
+<p>We also looked at the Moon's south pole with NASA's LRO data. In about a third of the area, ice can only survive under a thin layer of dry soil, around 8 cm. In the Tien Shan mountains ice also survives under a layer of rock. The temperatures are very different, but the idea is the same.</p>
+
+<h2>The sites</h2>
+<p>Click a blue dot or a name to see the numbers. White dots are Soyuz landings.</p>
+</div>
+
+<figure class="wide">
+  <div class="map" id="map">
+    <img src="img/map_kz.jpg" alt="Map of Kazakhstan" width="1376" height="512">
+    <svg viewBox="0 0 1376 512" id="mapsvg" role="group" aria-label="Study sites"></svg>
+  </div>
+  <div class="sitepick" id="pick"></div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <figcaption>Percent means: this site beats that share of random desert points.</figcaption>
+</figure>
+
+<div class="col">
+<p>Which site is best depends on what you care about most. So we let the computer pick random priorities 1,000 times and counted how often each site made the top three.</p>
+</div>
+
+<figure class="wide">
+  <div class="chart short"><canvas id="cTop" aria-label="How often each site makes the top three"></canvas></div>
+  <figcaption>Balapan, Chiyli and Betpak-Dala stay on top almost no matter what you prioritise.</figcaption>
+</figure>
+
+<div class="col">
+<h2>Summary</h2>
+<div class="tablewrap">
+<table class="score">
+<thead><tr><th>What we measured</th><th>Result</th><th>Numbers</th></tr></thead>
+<tbody>
+<tr><td>Flat ground (30 m maps)</td><td><span class="pill yes">strong</span></td><td class="num">0.12° vs 0.29° in the steppe</td></tr>
+<tr><td>Flat ground (laser)</td><td><span class="pill yes">strong</span></td><td class="num">0.16° vs 0.34°</td></tr>
+<tr><td>Temperature range</td><td><span class="pill yes">strong</span></td><td class="num">72 K vs 54 K</td></tr>
+<tr><td>Reflectivity</td><td><span class="pill yes">like Mars</span></td><td class="num">19%, Mars sites 13–24%</td></tr>
+<tr><td>Salty ground</td><td><span class="pill yes">2 sites</span></td><td>Inder, Aral Sea</td></tr>
+<tr><td>Craters</td><td><span class="pill part">old</span></td><td>Shunak keeps a quarter of its depth</td></tr>
+<tr><td>Small-scale texture</td><td><span class="pill next">next</span></td><td>needs sharper data</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>What we would do next</h2>
+<details open><summary>Go there</summary>
+<p>Satellites can't see rocks smaller than 40 m or tell how hard the soil is. A short trip with a drone and a soil probe would.</p></details>
+<details><summary>Use sharper images</summary>
+<p>Cracked, polygon-shaped ground is common on Mars. Our method finds it in China's Qaidam desert, but Kazakh cracks are smaller than a Sentinel-2 pixel (10 m).</p></details>
+<details><summary>Try a better radar</summary>
+<p>The Sentinel-1 radar did not separate Kazakhstan from other deserts. NASA's new NISAR radar sees deeper and is closer to the radars used on Mars and the Moon.</p></details>
+<details><summary>Combine everything</summary>
+<p>Comparing the overall shape of the land alone did not work well for any analog site, not just ours. The next step is to compare several measurements at once.</p></details>
+
+<p class="closing">Soyuz crews have been landing on Mars practice ground for 60 years. Now we have the numbers.</p>
+
+<section class="footnotes">
+<ol>
+<li id="fn-1">Slope is measured between points 480 m apart, using NASA's NASADEM elevation map. <a href="#fr-1">↩</a></li>
+<li id="fn-2">Mann–Whitney test, p = 2·10⁻¹⁰. In plain words: a gap this big would almost never appear by chance. <a href="#fr-2">↩</a></li>
+<li id="fn-3">Estimated from NASA MODIS data. Mars values are from NASA's Mars Global Surveyor. <a href="#fr-3">↩</a></li>
+<li id="fn-4">Crater size scaled by gravity: Earth 9.8 m/s², Mars 3.7 m/s². <a href="#fr-4">↩</a></li>
+<li id="fn-5">Data: NASA NASADEM, ICESat-2, MODIS, LRO, Mars Global Surveyor, GIBS; ESA Sentinel-1 and 2; JAXA AW3D30; CSA RADARSAT-1. We used AI to help write code. All numbers come from the code.</li>
+</ol>
+</section>
+</div>
+
+<footer>Team Astana · NASA Space Apps Challenge 2026</footer>
+
+<script>
+const D = __DATA__;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+// before/after sliders
+document.querySelectorAll('.compare').forEach(c => {
+  const i = c.querySelector('input');
+  const set = v => c.style.setProperty('--pos', v + '%');
+  set(i.value); i.addEventListener('input', () => set(i.value));
+});
+
+// video plays only when visible
+document.querySelectorAll('video.autoplay-in-view').forEach(v => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { v.controls = true; return; }
+  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? v.play().catch(() => {}) : v.pause()), {threshold: .4}).observe(v);
+});
+
+// charts
+const charts = [];
+function base(extra) {
+  const fg = css('--fg'), mu = css('--muted'), ru = css('--rule');
+  Chart.defaults.font.family = css('--serif'); Chart.defaults.font.size = 14; Chart.defaults.color = mu;
+  return Object.assign({responsive: true, maintainAspectRatio: false, animation: {duration: 500},
+    plugins: {legend: {labels: {color: fg, usePointStyle: true, boxWidth: 8}}, tooltip: {backgroundColor: 'rgba(20,22,26,.92)', titleColor: '#fff', bodyColor: '#fff'}}}, extra || {});
+}
+const gridc = () => ({color: css('--rule')});
+
+const groups = [
+  ['soyuz landing', 'Soyuz touchdown points', '--kz'],
+  ['random Kazakhstan', 'Random Kazakh steppe', '--ctrl'],
+  ['random arid world', 'Random world deserts', '--ctrl'],
+  ['mars landing', 'Mars landing sites', '--mars'],
+  ['moon landing', 'Moon landing sites', '--moon']];
+
+function rng(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+
+function buildAll() {
+  charts.splice(0).forEach(c => c.destroy());
+  // 1. landing strip plot
+  const r = rng(7);
+  charts.push(new Chart(document.getElementById('cLanding'), {type: 'scatter',
+    data: {datasets: groups.map(([k, lab, col], gi) => ({label: lab, data: D.landing[k].map(v => ({x: Math.max(v, .02), y: gi + (r() - .5) * .55})),
+      backgroundColor: css(col) + (k.startsWith('random') ? 'aa' : 'dd'), borderWidth: 0, pointRadius: k === 'soyuz landing' ? 3.5 : 3, pointHoverRadius: 6}))},
+    options: base({scales: {
+      x: {type: 'logarithmic', min: .02, max: 12, title: {display: true, text: 'median slope at 480 m, degrees (log scale)'}, grid: gridc(),
+          ticks: {callback: v => [.05, .1, .2, .5, 1, 2, 5, 10].includes(+v) ? v + '°' : ''}},
+      y: {min: -.6, max: 4.6, reverse: true, grid: {display: false}, ticks: {stepSize: 1, callback: v => (groups[v] || [])[1] || ''}}},
+      plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => `${c.dataset.label}: ${c.parsed.x.toFixed(2)}°`}}}})}));
+
+  // 2. ICESat-2
+  const ig = [['soyuz landing', 'Soyuz landing boxes', '--kz'], ['random Kazakhstan', 'Random steppe boxes', '--ctrl'], ['reference analog', 'Known US analogs', '--ref']];
+  const k = document.querySelector('.toggle button[aria-pressed="true"]').dataset.k;
+  const r2 = rng(3);
+  charts.push(new Chart(document.getElementById('cIce'), {type: 'scatter',
+    data: {datasets: ig.map(([g, lab, col], gi) => ({label: lab, data: D.icesat[g].map(o => ({x: o[k], y: gi + (r2() - .5) * .5, n: o.n})),
+      backgroundColor: css(col) + 'dd', borderWidth: 0, pointRadius: 4, pointHoverRadius: 7}))},
+    options: base({scales: {
+      x: {type: 'logarithmic', title: {display: true, text: (k === 'm' ? 'median' : '99th percentile') + ' slope at 40 m, degrees (log)'}, grid: gridc(),
+          ticks: {callback: v => [.1, .2, .5, 1, 2, 5, 10, 20].includes(+v) ? v + '°' : ''}},
+      y: {min: -.6, max: 2.6, reverse: true, grid: {display: false}, ticks: {stepSize: 1, callback: v => (ig[v] || [])[1] || ''}}},
+      plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => `${c.raw.n.startsWith('kz') || c.raw.n.startsWith('soyuz') ? c.dataset.label : c.raw.n}: ${c.parsed.x.toFixed(2)}°`}}}})}));
+
+  // 3. monthly temperature
+  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], kz = D.monthly.kazakhstan;
+  const C = x => +(x - 273.15).toFixed(1);
+  charts.push(new Chart(document.getElementById('cMonthly'), {type: 'line',
+    data: {labels: M, datasets: [
+      {label: 'Day (13:30)', data: kz.day.map(C), borderColor: css('--mars'), backgroundColor: css('--mars') + '22', fill: '+1', tension: .35, pointRadius: 3},
+      {label: 'Night (01:30)', data: kz.night.map(C), borderColor: css('--kz'), backgroundColor: css('--kz'), tension: .35, pointRadius: 3}]},
+    options: base({interaction: {mode: 'index', intersect: false}, scales: {x: {grid: {display: false}}, y: {title: {display: true, text: 'ground temperature, °C'}, grid: gridc()}},
+      plugins: {tooltip: {callbacks: {label: c => `${c.dataset.label}: ${c.parsed.y} °C`}}}})}));
+
+  // 4. annual range vs albedo with Mars band
+  const band = {id: 'band', beforeDatasetsDraw(ch) {
+    const {ctx, chartArea: a, scales: {x}} = ch; const x0 = x.getPixelForValue(.13), x1 = x.getPixelForValue(.24);
+    ctx.save(); ctx.fillStyle = css('--mars') + '1f'; ctx.fillRect(x0, a.top, x1 - x0, a.bottom - a.top);
+    ctx.fillStyle = css('--mars'); ctx.font = `italic 13px ${css('--serif')}`; ctx.fillText('Mars landing sites', x0 + 6, a.top + 16); ctx.restore(); }};
+  const tg = [['control', 'Random deserts', '--ctrl'], ['reference', 'Known analogs', '--ref'], ['kazakhstan', 'Kazakhstan', '--kz']];
+  charts.push(new Chart(document.getElementById('cThermal'), {type: 'scatter', plugins: [band],
+    data: {datasets: tg.map(([g, lab, col]) => ({label: lab, data: D.thermal.filter(t => t.g === g && t.alb != null).map(t => ({x: t.alb, y: t.rng, n: t.n})),
+      backgroundColor: css(col) + 'dd', borderWidth: 0, pointRadius: g === 'kazakhstan' ? 5 : 4, pointHoverRadius: 7}))},
+    options: base({scales: {x: {min: .05, max: .5, title: {display: true, text: 'albedo (darker ←  → brighter)'}, grid: gridc()},
+      y: {title: {display: true, text: 'annual range of ground temperature, K'}, grid: gridc()}},
+      plugins: {tooltip: {callbacks: {label: c => `${c.raw.n.replace(/^ctrl /, 'control: ')}: ${c.parsed.y.toFixed(0)} K, albedo ${c.parsed.x.toFixed(2)}`}}}})}));
+
+  // 5. robustness
+  const top = [...D.sites].sort((a, b) => b.top3_share - a.top3_share).slice(0, 8);
+  charts.push(new Chart(document.getElementById('cTop'), {type: 'bar',
+    data: {labels: top.map(s => s.name.replace(/ \(.*\)/, '').replace(' crater', '')), datasets: [{data: top.map(s => +(s.top3_share * 100).toFixed(1)),
+      backgroundColor: top.map((s, i) => i < 3 ? css('--kz') : css('--ctrl')), borderRadius: 3}]},
+    options: base({indexAxis: 'y', scales: {x: {max: 100, grid: gridc(), ticks: {callback: v => v + '%'}}, y: {grid: {display: false}}},
+      plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => `top three in ${c.parsed.x}% of weightings`}}}})}));
+}
+
+document.querySelectorAll('.toggle button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.toggle button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  buildAll();
+}));
+if (window.Chart) buildAll();
+
+// map
+const [L0, B0, L1, B1] = D.bbox, W = 1376, H = 512;
+const px = (lat, lon) => [(lon - L0) / (L1 - L0) * W, (B1 - lat) / (B1 - B0) * H];
+const svg = document.getElementById('mapsvg'), NS = 'http://www.w3.org/2000/svg';
+D.soyuz.forEach(([la, lo]) => { const [x, y] = px(la, lo); const c = document.createElementNS(NS, 'circle'); c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 3); c.setAttribute('class', 'soy'); svg.appendChild(c); });
+const pick = document.getElementById('pick'), panel = document.getElementById('panel');
+const pct = v => v == null ? 'n/a' : Math.round(v) + '%';
+const row = (k, v, p) => `<tr><td>${k}${p != null ? `<div class="bar" style="width:${Math.max(2, p)}%"></div>` : ''}</td><td>${v}</td></tr>`;
+function show(i) {
+  const s = D.sites[i];
+  svg.querySelectorAll('.site').forEach((c, j) => c.classList.toggle('on', j === i));
+  pick.querySelectorAll('button').forEach((b, j) => b.classList.toggle('on', j === i));
+  let h = `<h3>${s.name}</h3><table>`
+    + row('Terrain match to Mars landing plains', pct(s.mars_pct), s.mars_pct)
+    + row('Terrain match to lunar landing plains', pct(s.moon_pct), s.moon_pct)
+    + row('Annual ground temperature range', `${Math.round(s.annual_range)} K · beats ${pct(s.range_pct)}`, s.range_pct)
+    + row('Albedo (Mars sites 0.13–0.24)', s.albedo == null ? 'n/a' : s.albedo.toFixed(2), null)
+    + row('Hydrated-salt indicator', s.salt == null ? 'n/a' : `${s.salt.toFixed(2)} · beats ${pct(s.salt_pct)}`, s.salt_pct)
+    + row('Thermal inertia rank', `${pct(s.ti_pct)}${s.ti_in_mars_band === 'yes' ? ' · in Mars band' : ''}`, s.ti_pct)
+    + row('Area flatter than 5°', Math.round(s.area5 * 100) + '%', null)
+    + row('Nearest airport', `${s.airport.replace(/ International| National/, '').replace(' Airport', '')} · ${Math.round(s.airport_km)} km`, null)
+    + row('In top three under random weights', pct(s.top3_share * 100), null);
+  panel.innerHTML = h + '</table>';
+}
+const order = D.sites.map((s, i) => i).sort((a, b) => D.sites[b].top3_share - D.sites[a].top3_share);
+D.sites.forEach((s, i) => {
+  const [x, y] = px(s.lat, s.lon);
+  const c = document.createElementNS(NS, 'circle');
+  c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 11); c.setAttribute('class', 'site');
+  c.setAttribute('tabindex', 0); c.setAttribute('role', 'button'); c.setAttribute('aria-label', s.name);
+  const t = document.createElementNS(NS, 'title'); t.textContent = s.name; c.appendChild(t);
+  c.addEventListener('click', () => show(i)); c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(i); } });
+  svg.appendChild(c);
+});
+order.forEach(i => { const b = document.createElement('button'); b.type = 'button'; b.textContent = D.sites[i].name.replace(/ \(.*\)/, ''); b.addEventListener('click', () => show(i)); pick.appendChild(b); });
+// keep picker order aligned with show(): rebuild index mapping
+[...pick.children].forEach((b, j) => b.dataset.i = order[j]);
+show = (orig => i => { orig(i); pick.querySelectorAll('button').forEach(b => b.classList.toggle('on', +b.dataset.i === i)); })(show);
+show(order[0]);
+</script>

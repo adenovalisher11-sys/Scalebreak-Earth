@@ -1,0 +1,76 @@
+# Terrain ranking (method 1)
+Window 32 km, baselines (240, 480, 960, 1920) m. Sites computed: 244, failed/insufficient data: 1, dropped as unusable (zero roughness, i.e. water or void-filled): 6 ['Makgadikgadi pans', 'ctrl Arabia 9', 'ctrl Australia 6', 'ctrl Patagonia 10', 'ctrl Patagonia 14', 'ctrl Patagonia 22'].
+Controls dropped as vegetated or no NDVI (max NDVI > 0.3, MODIS 2023): 31; bare controls kept: 163.
+DEM noise floor (Salar de Uyuni): slope 0.120° @240 m, 0.032° @480 m, 0.009° @960 m, 0.004° @1920 m
+
+Plains-class targets used for mars: ['Meridiani (Opportunity)', 'Gusev (Spirit)', 'Elysium (InSight)', 'Chryse (Viking 1)', 'Ares Vallis (Pathfinder)', 'Utopia (Zhurong)']; relief-class (not used): ['Jezero (Perseverance)', 'Gale (Curiosity)', 'Utopia (Viking 2)']
+
+## Mars (6 landing sites as target)
+Landing sites vs each other (leave-one-out distance): median 0.85, max 1.40. An Earth site below ~0.85 is as close to the target as real landing sites are to one another.
+- kazakhstan: median distance 0.88 vs controls 0.66; Mann-Whitney one-sided p = 0.806 (n=16 vs 163)
+- reference: median distance 1.32 vs controls 0.66; Mann-Whitney one-sided p = 0.945 (n=9 vs 163)
+
+| rank | site | group | distance | vs target | beats % of controls | analog down to |
+|---|---|---|---|---|---|---|
+| 2/188 | Chiyli crater | kazakhstan | 0.16 | smoother x1.2 | 99 | 240 m |
+| 5/188 | Zhamanshin crater | kazakhstan | 0.18 | rougher x1.0 | 98 | 240 m |
+| 19/188 | Qaidam (Lenghu) | reference | 0.25 | rougher x1.2 | 90 | 240 m |
+| 35/188 | Semipalatinsk (Balapan) | kazakhstan | 0.35 | smoother x1.6 | 81 | 480 m |
+| 41/188 | Betpak-Dala | kazakhstan | 0.39 | smoother x1.7 | 78 | 480 m |
+| 46/188 | Meteor Crater, AZ | reference | 0.42 | rougher x1.8 | 75 | 240 m |
+| 80/188 | Mangystau (Bozzhyra) | kazakhstan | 0.59 | rougher x1.6 | 55 | 240 m |
+| 106/188 | White Sands, NM | reference | 0.79 | smoother x2.4 | 40 | not within envelope |
+| 108/188 | Bigach crater | kazakhstan | 0.80 | rougher x1.9 | 39 | 240 m |
+| 110/188 | Black Point (D-RATS), AZ | reference | 0.80 | rougher x2.1 | 39 | 240 m |
+| 113/188 | Altyn-Emel (Aktau) | kazakhstan | 0.84 | rougher x3.4 | 37 | not within envelope |
+| 116/188 | Charyn canyon | kazakhstan | 0.86 | rougher x3.1 | 36 | not within envelope |
+| 118/188 | Soyuz zone (Arkalyk) | kazakhstan | 0.89 | smoother x2.7 | 36 | not within envelope |
+| 121/188 | Kyzylkum (Kazakh part) | kazakhstan | 0.92 | smoother x3.2 | 34 | not within envelope |
+| 128/188 | Shunak crater | kazakhstan | 1.00 | rougher x2.5 | 31 | 240 m |
+| 140/188 | Inder salt dome | kazakhstan | 1.17 | smoother x4.4 | 24 | not within envelope |
+| 145/188 | Soyuz zone (Zhezkazgan) | kazakhstan | 1.21 | smoother x3.9 | 21 | not within envelope |
+| 151/188 | MDRS Hanksville, UT | reference | 1.32 | rougher x3.2 | 18 | 960 m |
+| 157/188 | Mojave (Pisgah) | reference | 1.46 | rougher x5.3 | 15 | not within envelope |
+| 158/188 | Ustyurt plateau | kazakhstan | 1.47 | smoother x4.9 | 15 | not within envelope |
+| 160/188 | Kilauea (Kau desert) | reference | 1.51 | rougher x7.0 | 15 | not within envelope |
+| 165/188 | Atacama (Yungay) | reference | 1.56 | rougher x5.0 | 12 | not within envelope |
+| 177/188 | Aralkum (dry Aral bed) | kazakhstan | 2.07 | smoother x11.2 | 6 | not within envelope |
+| 180/188 | Caspian lowland (Ryn) | kazakhstan | 2.13 | smoother x12.2 | 4 | not within envelope |
+| 183/188 | Wadi Rum | reference | 2.20 | rougher x7.0 | 3 | not within envelope |
+
+Plains-class targets used for moon: ['Apollo 11', 'Apollo 12', "Chang'e-3", "Chang'e-5", 'Luna 17']; relief-class (not used): ['Apollo 14', 'Apollo 15', 'Apollo 16', 'Apollo 17']
+
+## Moon (5 landing sites as target)
+Landing sites vs each other (leave-one-out distance): median 0.18, max 0.58. An Earth site below ~0.18 is as close to the target as real landing sites are to one another.
+- kazakhstan: median distance 0.91 vs controls 0.84; Mann-Whitney one-sided p = 0.427 (n=16 vs 163)
+- reference: median distance 1.70 vs controls 0.84; Mann-Whitney one-sided p = 0.970 (n=9 vs 163)
+
+| rank | site | group | distance | vs target | beats % of controls | analog down to |
+|---|---|---|---|---|---|---|
+| 2/188 | Semipalatinsk (Balapan) | kazakhstan | 0.19 | smoother x1.2 | 99 | 240 m |
+| 4/188 | Betpak-Dala | kazakhstan | 0.21 | smoother x1.2 | 99 | 240 m |
+| 18/188 | Chiyli crater | kazakhstan | 0.31 | rougher x1.1 | 91 | 240 m |
+| 44/188 | Zhamanshin crater | kazakhstan | 0.48 | rougher x1.4 | 75 | 240 m |
+| 51/188 | White Sands, NM | reference | 0.52 | smoother x1.8 | 72 | not within envelope |
+| 52/188 | Soyuz zone (Arkalyk) | kazakhstan | 0.52 | smoother x2.0 | 72 | not within envelope |
+| 65/188 | Qaidam (Lenghu) | reference | 0.62 | rougher x1.6 | 64 | 240 m |
+| 77/188 | Kyzylkum (Kazakh part) | kazakhstan | 0.70 | smoother x2.3 | 58 | not within envelope |
+| 84/188 | Meteor Crater, AZ | reference | 0.80 | rougher x2.4 | 54 | 480 m |
+| 87/188 | Inder salt dome | kazakhstan | 0.81 | smoother x3.3 | 53 | not within envelope |
+| 94/188 | Soyuz zone (Zhezkazgan) | kazakhstan | 0.85 | smoother x2.9 | 49 | not within envelope |
+| 109/188 | Mangystau (Bozzhyra) | kazakhstan | 0.97 | rougher x2.1 | 40 | 240 m |
+| 117/188 | Ustyurt plateau | kazakhstan | 1.09 | smoother x3.6 | 36 | not within envelope |
+| 126/188 | Bigach crater | kazakhstan | 1.18 | rougher x2.7 | 31 | 1920 m |
+| 127/188 | Black Point (D-RATS), AZ | reference | 1.18 | rougher x2.9 | 31 | not within envelope |
+| 130/188 | Altyn-Emel (Aktau) | kazakhstan | 1.22 | rougher x4.7 | 30 | not within envelope |
+| 132/188 | Charyn canyon | kazakhstan | 1.24 | rougher x4.2 | 29 | not within envelope |
+| 139/188 | Shunak crater | kazakhstan | 1.38 | rougher x3.4 | 26 | not within envelope |
+| 154/188 | MDRS Hanksville, UT | reference | 1.70 | rougher x4.4 | 17 | not within envelope |
+| 155/188 | Aralkum (dry Aral bed) | kazakhstan | 1.72 | smoother x8.2 | 17 | not within envelope |
+| 157/188 | Caspian lowland (Ryn) | kazakhstan | 1.77 | smoother x8.9 | 17 | not within envelope |
+| 161/188 | Mojave (Pisgah) | reference | 1.84 | rougher x7.2 | 15 | not within envelope |
+| 163/188 | Kilauea (Kau desert) | reference | 1.89 | rougher x9.5 | 14 | not within envelope |
+| 167/188 | Atacama (Yungay) | reference | 1.94 | rougher x6.8 | 12 | not within envelope |
+| 183/188 | Wadi Rum | reference | 2.58 | rougher x9.6 | 3 | not within envelope |
+
+FAILED: [('ctrl Arabia 24', 'valid=0.7548262548262549')]

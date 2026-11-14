@@ -1,0 +1,58 @@
+# Thermal regime (MODIS 2023) and albedo
+
+Earth sites with data: 65; failed: 1 ['ctrl Arabia 1']
+
+| group | n | annual range, K (median) | diurnal amplitude, K | albedo | albedo < 0.25 | NDVI max > 0.3 |
+|---|---|---|---|---|---|---|
+| kazakhstan | 16 | 72 | 31 | 0.19 | 11/16 | 6/16 |
+| reference | 10 | 63 | 36 | 0.31 | 3/9 | 0/10 |
+| control | 39 | 54 | 32 | 0.23 | 21/39 | 6/39 |
+
+H1 annual range Kazakhstan > controls: Mann-Whitney one-sided p = 7.6e-06
+
+Diurnal amplitude Kazakhstan vs controls (two-sided): p = 0.21
+
+| site | group | annual range K | beats % of controls | diurnal amp K | T_day max K | T_night min K | albedo | ATI | NDVI max |
+|---|---|---|---|---|---|---|---|---|---|
+| Bigach crater | kazakhstan | 76 | 97 | 30 | 319 | 243 | 0.15 | 0.029 | 0.35 |
+| Soyuz zone (Zhezkazgan) | kazakhstan | 76 | 95 | 34 | 324 | 248 | 0.18 | 0.024 | 0.27 |
+| Soyuz zone (Arkalyk) | kazakhstan | 75 | 92 | 34 | 321 | 245 | 0.16 | 0.025 | 0.38 |
+| Semipalatinsk (Balapan) | kazakhstan | 74 | 90 | 31 | 319 | 246 | 0.13 | 0.028 | 0.24 |
+| Altyn-Emel (Aktau) | kazakhstan | 74 | 90 | 32 | 327 | 253 | 0.32 | 0.022 | 0.07 |
+| Kyzylkum (Kazakh part) | kazakhstan | 73 | 90 | 38 | 330 | 257 | 0.20 | 0.021 | 0.15 |
+| Chiyli crater | kazakhstan | 72 | 90 | 31 | 320 | 248 | 0.16 | 0.028 | 0.41 |
+| Charyn canyon | kazakhstan | 72 | 90 | 27 | 323 | 251 | 0.17 | 0.031 | 0.16 |
+| Zhamanshin crater | kazakhstan | 71 | 90 | 30 | 320 | 249 | 0.19 | 0.027 | 0.30 |
+| Betpak-Dala | kazakhstan | 71 | 90 | 31 | 322 | 251 | 0.26 | 0.024 | 0.21 |
+| MDRS Hanksville, UT | reference | 70 | 87 | 36 | 331 | 261 | 0.34 | 0.018 | 0.10 |
+| Ustyurt plateau | kazakhstan | 70 | 87 | 37 | 325 | 255 | 0.33 | 0.018 | 0.11 |
+| Caspian lowland (Ryn) | kazakhstan | 69 | 85 | 28 | 323 | 254 | 0.19 | 0.028 | 0.31 |
+| Qaidam (Lenghu) | reference | 69 | 85 | 37 | 321 | 252 | 0.34 | 0.018 | 0.05 |
+| White Sands, NM | reference | 69 | 85 | 41 | 333 | 264 | 0.31 | 0.017 | 0.17 |
+| Shunak crater | kazakhstan | 67 | 82 | 30 | 321 | 254 | 0.17 | 0.028 | 0.35 |
+| Meteor Crater, AZ | reference | 66 | 82 | 36 | 329 | 263 | 0.27 | 0.020 | 0.17 |
+| Mangystau (Bozzhyra) | kazakhstan | 65 | 79 | 29 | 323 | 258 | 0.36 | 0.022 | 0.10 |
+| Aralkum (dry Aral bed) | kazakhstan | 64 | 77 | 34 | 323 | 260 | 0.32 | 0.020 | 0.09 |
+| Black Point (D-RATS), AZ | reference | 64 | 77 | 34 | 329 | 265 | 0.15 | 0.025 | 0.21 |
+| Inder salt dome | kazakhstan | 63 | 77 | 25 | 321 | 258 | 0.19 | 0.033 | 0.36 |
+| Mojave (Pisgah) | reference | 62 | 74 | 33 | 335 | 273 | 0.10 | 0.027 | 0.15 |
+| Atacama (Yungay) | reference | 53 | 38 | 43 | 327 | 274 | 0.33 | 0.015 | 0.11 |
+| Wadi Rum | reference | 49 | 15 | 25 | 326 | 277 | 0.31 | 0.028 | 0.12 |
+| Makgadikgadi pans | reference | 45 | 3 | 27 | 325 | 280 | nan | nan | 0.11 |
+| Kilauea (Kau desert) | reference | 41 | 0 | 35 | 326 | 285 | 0.06 | 0.027 | 0.02 |
+
+## Mars: TES albedo at landing sites (dtype float32, nodata -3.4028226550889045e+38, scale 1.0)
+
+| site | albedo | < 0.25 |
+|---|---|---|
+| Jezero (Perseverance) | 0.168 | yes |
+| Gale (Curiosity) | 0.231 | yes |
+| Meridiani (Opportunity) | 0.128 | yes |
+| Gusev (Spirit) | 0.223 | yes |
+| Elysium (InSight) | 0.240 | yes |
+| Chryse (Viking 1) | 0.218 | yes |
+| Utopia (Viking 2) | 0.239 | yes |
+| Ares Vallis (Pathfinder) | 0.179 | yes |
+| Utopia (Zhurong) | 0.229 | yes |
+| Top settlement site (paper 21) | 0.224 | yes |
+

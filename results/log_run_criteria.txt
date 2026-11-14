@@ -1,0 +1,64 @@
+# Published slope rules at a 480 m baseline
+
+**landing site** (n=18): median share of area <=5 deg = 98%; pass ILRS rule (>30 % <8 deg): 18/18; >=90 % of area <=5 deg: 12/18
+
+**paper-selected** (n=5): median share of area <=5 deg = 96%; pass ILRS rule (>30 % <8 deg): 5/5; >=90 % of area <=5 deg: 4/5
+
+**kazakhstan** (n=16): median share of area <=5 deg = 100%; pass ILRS rule (>30 % <8 deg): 16/16; >=90 % of area <=5 deg: 16/16
+
+**reference analog** (n=10): median share of area <=5 deg = 94%; pass ILRS rule (>30 % <8 deg): 10/10; >=90 % of area <=5 deg: 6/10
+
+**control** (n=40): median share of area <=5 deg = 99%; pass ILRS rule (>30 % <8 deg): 40/40; >=90 % of area <=5 deg: 30/40
+
+| site | body | group | median slope | 95th pct | area <=5 deg | area <=15 deg |
+|---|---|---|---|---|---|---|
+| Jezero (Perseverance) | mars | landing site | 1.82 | 10.8 | 79% | 99% |
+| Gale (Curiosity) | mars | landing site | 3.01 | 18.5 | 64% | 89% |
+| Meridiani (Opportunity) | mars | landing site | 0.98 | 3.5 | 98% | 100% |
+| Gusev (Spirit) | mars | landing site | 1.86 | 7.6 | 86% | 100% |
+| Elysium (InSight) | mars | landing site | 0.25 | 0.5 | 100% | 100% |
+| Chryse (Viking 1) | mars | landing site | 0.27 | 0.8 | 100% | 100% |
+| Utopia (Viking 2) | mars | landing site | 1.52 | 3.5 | 100% | 100% |
+| Ares Vallis (Pathfinder) | mars | landing site | 0.62 | 1.8 | 100% | 100% |
+| Utopia (Zhurong) | mars | landing site | 0.34 | 0.9 | 100% | 100% |
+| Apollo 11 | moon | landing site | 0.76 | 1.9 | 99% | 100% |
+| Apollo 12 | moon | landing site | 0.35 | 1.0 | 100% | 100% |
+| Apollo 14 | moon | landing site | 2.17 | 5.4 | 93% | 100% |
+| Apollo 15 | moon | landing site | 6.44 | 26.8 | 46% | 70% |
+| Apollo 16 | moon | landing site | 2.57 | 10.9 | 70% | 99% |
+| Apollo 17 | moon | landing site | 10.37 | 25.5 | 29% | 68% |
+| Chang'e-3 | moon | landing site | 0.40 | 1.3 | 99% | 100% |
+| Chang'e-5 | moon | landing site | 0.33 | 1.2 | 98% | 99% |
+| Luna 17 | moon | landing site | 0.26 | 0.8 | 100% | 100% |
+| Pytheas cluster (base, paper 18) | moon | paper-selected | 0.49 | 2.0 | 98% | 100% |
+| Gambart cluster (base, paper 18) | moon | paper-selected | 0.60 | 4.8 | 96% | 100% |
+| Parry cluster (base, paper 18) | moon | paper-selected | 0.35 | 1.2 | 100% | 100% |
+| Nobile Rim 2 (Artemis III, paper 30) | moon | paper-selected | 10.06 | 24.4 | 19% | 74% |
+| Top settlement site (paper 21) | mars | paper-selected | 2.10 | 6.2 | 91% | 100% |
+| Soyuz zone (Zhezkazgan) | earth | kazakhstan | 0.10 | 0.6 | 100% | 100% |
+| Soyuz zone (Arkalyk) | earth | kazakhstan | 0.17 | 0.6 | 100% | 100% |
+| Zhamanshin crater | earth | kazakhstan | 0.50 | 1.9 | 100% | 100% |
+| Bigach crater | earth | kazakhstan | 1.06 | 3.1 | 100% | 100% |
+| Shunak crater | earth | kazakhstan | 1.18 | 6.0 | 92% | 100% |
+| Chiyli crater | earth | kazakhstan | 0.40 | 1.4 | 100% | 100% |
+| Aralkum (dry Aral bed) | earth | kazakhstan | 0.04 | 0.2 | 100% | 100% |
+| Betpak-Dala | earth | kazakhstan | 0.29 | 0.9 | 100% | 100% |
+| Ustyurt plateau | earth | kazakhstan | 0.08 | 0.2 | 100% | 100% |
+| Mangystau (Bozzhyra) | earth | kazakhstan | 0.73 | 6.9 | 91% | 100% |
+| Inder salt dome | earth | kazakhstan | 0.11 | 0.8 | 100% | 100% |
+| Semipalatinsk (Balapan) | earth | kazakhstan | 0.34 | 1.4 | 100% | 100% |
+| Altyn-Emel (Aktau) | earth | kazakhstan | 1.88 | 5.4 | 94% | 100% |
+| Charyn canyon | earth | kazakhstan | 1.24 | 6.0 | 92% | 100% |
+| Kyzylkum (Kazakh part) | earth | kazakhstan | 0.16 | 0.5 | 100% | 100% |
+| Caspian lowland (Ryn) | earth | kazakhstan | 0.04 | 0.1 | 100% | 100% |
+| Black Point (D-RATS), AZ | earth | reference analog | 0.98 | 4.2 | 96% | 100% |
+| White Sands, NM | earth | reference analog | 0.18 | 0.6 | 100% | 100% |
+| Atacama (Yungay) | earth | reference analog | 2.51 | 10.4 | 78% | 98% |
+| Mojave (Pisgah) | earth | reference analog | 2.55 | 7.7 | 83% | 100% |
+| Meteor Crater, AZ | earth | reference analog | 0.74 | 1.8 | 99% | 100% |
+| Qaidam (Lenghu) | earth | reference analog | 0.49 | 3.0 | 98% | 100% |
+| Makgadikgadi pans | earth | reference analog | 0.00 | 0.2 | 100% | 100% |
+| Kilauea (Kau desert) | earth | reference analog | 3.11 | 9.2 | 72% | 99% |
+| MDRS Hanksville, UT | earth | reference analog | 1.56 | 6.5 | 93% | 98% |
+| Wadi Rum | earth | reference analog | 4.13 | 17.1 | 57% | 93% |
+

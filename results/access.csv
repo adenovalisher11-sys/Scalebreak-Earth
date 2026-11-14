@@ -1,0 +1,27 @@
+group,name,airport,iata,km,months_night_above_0C
+kazakhstan,Soyuz zone (Zhezkazgan),Zhezkazgan National Airport,DZN,145,5
+kazakhstan,Soyuz zone (Arkalyk),Nursultan Nazarbayev International Airport,NQZ,292,7
+kazakhstan,Zhamanshin crater,Aktobe International Airport,AKX,341,6
+kazakhstan,Bigach crater,Oskemen International Airport,UKK,164,6
+kazakhstan,Shunak crater,Balkhash Airport,BXH,174,6
+kazakhstan,Chiyli crater,Aktobe International Airport,AKX,128,7
+kazakhstan,Aralkum (dry Aral bed),Baikonur Krayniy International Airport,BXY,223,7
+kazakhstan,Betpak-Dala,Zhezkazgan National Airport,DZN,264,6
+kazakhstan,Ustyurt plateau,Nukus International Airport,NCU,345,8
+kazakhstan,Mangystau (Bozzhyra),Aktau International Airport,SCO,245,9
+kazakhstan,Inder salt dome,Atyrau International Airport,GUW,159,8
+kazakhstan,Semipalatinsk (Balapan),Semei International Airport,PLX,99,6
+kazakhstan,Altyn-Emel (Aktau),Taldykorgan Airport,TDK,138,7
+kazakhstan,Charyn canyon,Karakol International Airport,IKG,110,6
+kazakhstan,Kyzylkum (Kazakh part),Korkyt Ata International Airport,KZO,110,6
+kazakhstan,Caspian lowland (Ryn),Atyrau International Airport,GUW,180,6
+reference,"Black Point (D-RATS), AZ",Flagstaff Pulliam Airport,FLG,67,7
+reference,"White Sands, NM",Las Cruces International Airport,LRU,89,9
+reference,Atacama (Yungay),Andrés Sabella Gálvez International Airport,ANF,89,12
+reference,Mojave (Pisgah),Palm Springs International Airport,PSP,103,11
+reference,"Meteor Crater, AZ",Flagstaff Pulliam Airport,FLG,60,7
+reference,Qaidam (Lenghu),Huatugou Airport,HTT,181,4
+reference,Makgadikgadi pans,Phillip Gaonwe Matante International Airport,FRW,209,12
+reference,Kilauea (Kau desert),Hilo International Airport,ITO,53,12
+reference,"MDRS Hanksville, UT",Canyonlands Regional Airport,CNY,98,6
+reference,Wadi Rum,King Hussein International Airport,AQJ,39,12
