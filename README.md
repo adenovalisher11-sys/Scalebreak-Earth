@@ -1,6 +1,6 @@
 # Steppe to Mars (Scalebreak-Earth)
 
-This project was made by a team from Astana for the NASA Space Apps Challenge 2026, in the challenge about terrestrial analogs. It asks whether places in Kazakhstan can serve as practice ground for missions to the Moon and Mars, and it answers the question with open data from NASA, ESA, JAXA and CSA rather than with photographs. The report with charts and maps is published at https://scalebreak-earth.vercel.app and the full description of every test is in [METHODOLOGY.md](METHODOLOGY.md).
+This project was made by the team [HopeMaxxxing](https://www.spaceappschallenge.org/2026/find-a-team/hopemaxxxing/) from Astana for the NASA Space Apps Challenge 2026, in the challenge about terrestrial analogs. It asks whether places in Kazakhstan can serve as practice ground for missions to the Moon and Mars, and it answers the question with open data from NASA, ESA, JAXA and CSA rather than with photographs. The report with charts and maps is published at https://scalebreak-earth.vercel.app and the full description of every test is in [METHODOLOGY.md](METHODOLOGY.md).
 
 ## How the work was done
 
