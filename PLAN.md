@@ -1,109 +1,111 @@
-# План исследования: Казахстан как аналог Марса и Луны — итог выполнения
+# Research plan: Kazakhstan as a Mars and Moon analog — outcome
 
-Статус на 14 ноября 2026: все шаги проведены на данных. У каждого шага ниже отдельно указан результат:
-гипотеза подтверждена, отвергнута или результат нулевой. Видео исключено решением команды 14 ноября;
-вместо него сдаются 7 слайдов (SUBMISSION.md).
-Правило проекта: у каждой гипотезы заранее записан критерий провала, и один и тот же код считает
-цель (Марс, Луна), Казахстан, признанные аналоги и случайные засушливые точки.
-Весь конвейер пересчитывается командой из README.md; последний полный прогон — 14 ноября, после сверки
-координат всех участков (источники в `kzanalog/sites.py`).
+Status on 14 November 2026: every step has been run on data. Each step below states its result
+separately: hypothesis confirmed, rejected, or a null result. The video was dropped by team decision on
+14 November; 7 slides are submitted instead (SUBMISSION.md).
+Project rule: every hypothesis has a failure criterion written down in advance, and the same code measures
+the target (Mars, Moon), Kazakhstan, established analogs and random arid points.
+The whole pipeline is rerun with the command in README.md; the last full run was on 14 November, after
+the coordinates of all sites were checked (sources in `kzanalog/sites.py`).
+The Russian original of this file is [PLAN.ru.md](PLAN.ru.md).
 
-## Роли данных (как использовано)
+## Data roles (as used)
 
-| Источник | Для чего | Скрипт |
+| Source | Used for | Script |
 |---|---|---|
-| NASA NASADEM 30 м | Рельеф Казахстана, посадочный тест, кратеры | run_terrain, run_criteria, run_landing, run_craters |
-| NASA ICESat-2 ATL06 (OpenAltimetry) | Уклоны на 40–200 м | run_icesat |
-| NASA MODIS LST, NBAR, NDVI | Тепловой режим, альбедо, маска растительности | run_thermal, run_ti, run_terrain |
-| NASA LRO LOLA, Diviner PRP | Рельеф и кратеры Луны; температура и лёд южного полюса | run_terrain, run_craters, run_ice |
-| NASA MGS MOLA+HRSC, TES альбедо и тепловая инерция | Рельеф, кратеры, альбедо, тепловая инерция Марса | run_terrain, run_craters, run_thermal, run_ti |
-| NASA GIBS | Фон карты | build_report |
-| ESA Sentinel-2 | Индикатор солей, поиск полигонов | run_salts, run_takyr |
-| ESA Sentinel-1 | Радарная шероховатость (C-диапазон) | run_radar |
-| CSA RADARSAT-1 (архив на AWS) | Проверка покрытия Казахстана | rs1_index |
-| JAXA AW3D30 | Независимая проверка рельефа NASADEM | run_dem_check |
+| NASA NASADEM 30 m | Kazakhstan terrain, landing test, craters | run_terrain, run_criteria, run_landing, run_craters |
+| NASA ICESat-2 ATL06 (OpenAltimetry) | Slopes at 40–200 m | run_icesat |
+| NASA MODIS LST, NBAR, NDVI | Thermal regime, albedo, vegetation mask | run_thermal, run_ti, run_terrain |
+| NASA LRO LOLA, Diviner PRP | Moon terrain and craters; south-pole temperature and ice | run_terrain, run_craters, run_ice |
+| NASA MGS MOLA+HRSC, TES albedo and thermal inertia | Mars terrain, craters, albedo, thermal inertia | run_terrain, run_craters, run_thermal, run_ti |
+| NASA GIBS | Map background | build_report |
+| ESA Sentinel-2 | Salt indicator, polygon search | run_salts, run_takyr |
+| ESA Sentinel-1 | Radar roughness (C-band) | run_radar |
+| CSA RADARSAT-1 (archive on AWS) | Check of coverage over Kazakhstan | rs1_index |
+| JAXA AW3D30 | Independent check of NASADEM terrain | run_dem_check |
 
-## Шаги и результаты
+## Steps and results
 
-**Шаг 0. Доступ к данным — проведён.** `kzanalog/dem.py`, `kzanalog/modis.py` читают все слои по HTTP без логина.
+**Step 0. Data access — done.** `kzanalog/dem.py` and `kzanalog/modis.py` read every layer over HTTP with no login.
 
-**Шаг 1. Слепой рейтинг по рельефу — проведён. Результат: Казахстан как группа не выделяется.**
-С целями класса «равнины» и 163 голыми контрольными точками: Марс p = 0,81, Луна p = 0,43.
-Отдельные участки сильные: Шийли и Жаманшин ближе к марсианским равнинам посадки, чем 98–99%
-контрольных; Балапан и Бетпак-Дала ближе к лунным, чем 99%.
+**Step 1. Blind terrain ranking — done. Result: Kazakhstan as a group does not stand out.**
+With "plains"-class targets and 163 bare control points: Mars p = 0.81, Moon p = 0.43.
+Single sites are strong: Chiyli and Zhamanshin are closer to Martian landing plains than 98–99% of
+controls; Balapan and Betpak-Dala are closer to lunar ones than 99%.
 
-**Шаг 1b. Опубликованные пороги уклона — проведён. Результат: пороги не различают участки.**
-Правило статьи 31 проходят 18/18 реальных площадок, 5/5 регионов из статей 18, 21, 30, 16/16 участков
-Казахстана и 40/40 случайных точек. Уклон на 480 м — необходимое, а не отличительное условие.
+**Step 1b. Published slope thresholds — done. Result: the thresholds do not separate sites.**
+The rule from paper 31 is passed by 18/18 real landing sites, 5/5 regions from papers 18, 21 and 30,
+16/16 Kazakh sites and 40/40 random points. Slope at 480 m is a necessary condition, not a distinguishing one.
 
-**Шаг 2. Цель, координаты, контроли — проведён. Результат: критерий НЕ достигнут.**
-Исходная формулировка шага: «Критерий: после этого признанные аналоги должны обгонять случайные точки.
-Если нет, пишем это прямо». Работа шага (координаты, классы целей, 200 контрольных точек, маска NDVI)
-сделана полностью; сам критерий не выполнен, и это записано ниже.
-Координаты всех участков сверены с внешними источниками: Википедия (кратеры, Балапан, Чарын, центр
-Аралкума, американские аналоги), OpenStreetMap (Индер, пески Рын, Устюрт, Бетпак-Дала, ярданги Ленгху,
-Кызылкум), USGS GNIS (Black Point, «Bench», округ Коконино), туристические справочники (Бозжыра,
-горы Актау; не геодезическая точность); зоны посадки — по 95 опубликованным точкам (Аркалык — медиана
-41 северной посадки). Каждая точка Казахстана проверена обратным геокодированием на нужный район. Цели разделены на «равнины» и «рельеф». Контрольных точек 200, после
-маски растительности (NDVI MODIS ≤ 0,3) осталось 163. Критерий «признанные аналоги обгоняют случайные
-точки» не выполнен (Марс p = 0,95, Луна p = 0,97): общий рельеф аналог не определяет. Это результат
-проверки, а не недоделка: он и есть причина, по которой проект сравнивает участки по нескольким слоям.
+**Step 2. Target, coordinates, controls — done. Result: the criterion was NOT met.**
+Original wording of the step: "Criterion: after this, established analogs must beat random points.
+If they do not, we say so plainly." The work of the step (coordinates, target classes, 200 control points,
+NDVI mask) was done in full; the criterion itself was not met, and that is recorded below.
+The coordinates of all sites were checked against outside sources: Wikipedia (craters, Balapan, Charyn,
+centre of the Aralkum, the American analogs), OpenStreetMap (Inder, Ryn sands, Ustyurt, Betpak-Dala,
+Lenghu yardangs, Kyzylkum), USGS GNIS (Black Point, "Bench", Coconino County), tourism guides (Bozzhyra,
+Aktau hills; not survey grade); the landing zones come from 95 published points (Arkalyk is the median of
+the 41 northern landings). Every Kazakh point was reverse-geocoded to the expected district. Targets are
+split into "plains" and "relief". There are 200 control points; 163 remain after the vegetation mask
+(MODIS NDVI ≤ 0.3). The criterion "established analogs beat random points" was not met (Mars p = 0.95,
+Moon p = 0.97): overall terrain does not identify an analog. This is a result of the test, not unfinished
+work: it is the reason the project compares sites on several layers.
 
-**Шаг 3. Посадочный тест — проведён. Результат: главный результат.**
-95 точек посадок «Союзов»: медианный уклон 0,12° (480 м) против 0,29° у случайной степи (p = 2·10⁻¹⁰),
-0,62° у случайных пустынь, 0,84° у площадок Марса и 0,88° у Луны; 95 из 95 окон проходят правило 5°.
-ICESat-2 на 40 м: 0,16° против 0,34° (p = 0,001), 99-й перцентиль 1,7° против 3,7° (p = 10⁻⁵),
-уклонов больше 5° — 0,06%; у признанных аналогов 4–25%.
+**Step 3. Landing test — done. Result: the main result.**
+95 Soyuz landing points: median slope 0.12° (480 m) against 0.29° for random steppe (p = 2·10⁻¹⁰),
+0.62° for random deserts, 0.84° for Mars landing sites and 0.88° for Moon ones; 95 of 95 windows pass the 5° rule.
+ICESat-2 at 40 m: 0.16° against 0.34° (p = 0.001), 99th percentile 1.7° against 3.7° (p = 10⁻⁵),
+slopes steeper than 5°: 0.06%; at established analogs 4–25%.
 
-**Шаг 4. Кратеры с поправкой на гравитацию — проведён.**
-Казахские кратеры сохранили 7–26% отношения глубины к диаметру свежих кратеров эквивалентного класса.
-Надёжен Шунак (сдвиг центра 0,15 R); у Жаманшина, Бигача и Шийли поиск центра ушёл на 0,67–0,81 R.
+**Step 4. Craters with a gravity correction — done.**
+Kazakh craters keep 7–26% of the depth-to-diameter ratio of fresh craters of the equivalent class.
+Shunak is reliable (centre shift 0.15 R); for Zhamanshin, Bigach and Chiyli the centre search moved 0.67–0.81 R.
 
-**Шаг 5. Тепловой режим — проведён. Результат: гипотеза подтверждена.**
-Годовой размах 72 К против 54 К у случайных пустынь (p = 8·10⁻⁶). Альбедо 0,19 (11 из 16 участков ниже 0,25)
-внутри диапазона всех 10 площадок Марса (0,13–0,24). Суточный размах около 31 К — не отличается.
-Тепловые данные есть для всех 16 участков (выбор плитки MODIS исправлен: номер считается по проекции).
+**Step 5. Thermal regime — done. Result: hypothesis confirmed.**
+Annual range 72 K against 54 K for random deserts (p = 8·10⁻⁶). Albedo 0.19 (11 of 16 sites below 0.25),
+inside the range of all 10 Mars sites (0.13–0.24). Daily swing about 31 K — no difference.
+Thermal data exist for all 16 sites (MODIS tile selection was fixed: the tile number is computed from the projection).
 
-**Шаг 5c. Тепловая инерция по рангам — проведён.**
-TES (Марс): площадки посадки лежат в 44–99 перцентиле своей планеты. Казахская кажущаяся инерция
-(MODIS) попадает в тот же диапазон перцентилей у 10 из 16 участков; распределения не различаются
-(p = 0,73). Луна не включена: тепловая инерция реголита почти одинакова везде.
+**Step 5c. Thermal inertia by rank — done.**
+TES (Mars): landing sites lie in the 44th–99th percentile of their planet. Kazakh apparent thermal inertia
+(MODIS) falls in the same percentile range at 10 of 16 sites; the distributions do not differ
+(p = 0.73). The Moon is not included: regolith thermal inertia is nearly the same everywhere.
 
-**Шаг 5b. Лёд под сухим покровом (Diviner) — проведён.**
-Южный полюс Луны: лёд устойчив в 38% колонок, в 34% только под сухим слоем (медиана 0,08 м).
-Морена Тянь-Шаня: граница промерзания около 1,6 м (оценка). Разрыв: 93 К против 264 К.
+**Step 5b. Ice under a dry cover (Diviner) — done.**
+Lunar south pole: ice is stable in 38% of columns, in 34% only under a dry layer (median 0.08 m).
+Tien Shan moraine: freezing boundary at about 1.6 m (estimate). The gap: 93 K against 264 K.
 
-**Шаг 6. Соли и такыры — проведён. Результат: соли — сигнал есть; полигоны — нулевой (метод работает на контроле).**
-Индикатор солей: солончак озера Индер 1,42 и дно Арала 1,17 выше всех контрольных; контроль Уайт-Сэндс 1,20.
-Поиск полигонов 20–150 м: положительный контроль работает — сетка 5×5 по области Даланьтань (границы
-из Kong et al.) выделяется над контрольными (p = 0,002), пики на 50–116 м совпадают с опубликованными
-60–120 м. Казахстан, включая такыр Дарьялык, не выделяется (p = 0,65): полигонов этого масштаба в
-выбранных точках нет. Сами трещины такыров (см–м) мельче пикселя 10 м и не измеряются.
+**Step 6. Salts and takyrs — done. Result: salts — a signal is present; polygons — null (the method works on the control).**
+Salt indicator: the Lake Inder salt flat at 1.42 and the Aral seabed at 1.17 are above every control; the White Sands control is 1.20.
+Search for 20–150 m polygons: the positive control works — a 5×5 grid over the Dalangtan area (bounds
+from Kong et al.) stands out from the controls (p = 0.002), and its peaks at 50–116 m match the published
+60–120 m. Kazakhstan, including the Daryalyk takyr, does not stand out (p = 0.65): there are no polygons of
+this scale at the chosen points. Takyr cracks themselves (cm–m) are smaller than the 10 m pixel and are not measured.
 
-**Шаг 7. Таблица по свойствам — проведён.** (results/property_table.md).
-Без общего индекса; строка «где ломается» на каждое свойство; три масштаба (регион 32 км,
-ландшафт 480 м, профиль 40 м); доступность (ближайший аэропорт 99–345 км; 5–9 месяцев без мороза
-по ночной температуре поверхности). Лидеры при 1000 случайных весах: Балапан (в тройке в 99%
-прогонов), Шийли (92%), Бетпак-Дала (65%).
+**Step 7. Property table — done.** (results/property_table.md).
+No overall index; a "where it breaks" line for every property; three scales (region 32 km,
+landscape 480 m, profile 40 m); access (nearest airport 99–345 km; 5–9 frost-free months
+by night surface temperature). Leaders under 1,000 random weightings: Balapan (in the top three in 99%
+of runs), Chiyli (92%), Betpak-Dala (65%).
 
-**Шаг 8. Данные партнёров — проведён. Результат: JAXA подтверждает рельеф от 480 м; радар не выделяет Казахстан; RADARSAT-1 не покрывает Казахстан.**
-JAXA AW3D30 и NASADEM совпадают в пределах 10% от 480 м; ниже на ровной степи расходятся до 2 раз (шум).
-Sentinel-1: Казахстан от контрольных не отличается (p = 0,36); самые шероховатые — Чарын, Бозжыра, Актау.
-RADARSAT-1: из 2245 летних снимков открытого архива (1996–2013) ни один не покрывает Казахстан;
-данные RCM в открытом доступе не распространяются.
+**Step 8. Partner data — done. Result: JAXA confirms the terrain from 480 m up; radar does not single out Kazakhstan; RADARSAT-1 does not cover Kazakhstan.**
+JAXA AW3D30 and NASADEM agree within 10% from 480 m; below that, on flat steppe, they differ by up to a factor of 2 (noise).
+Sentinel-1: Kazakhstan does not differ from the controls (p = 0.36); the roughest sites are Charyn, Bozzhyra and Aktau.
+RADARSAT-1: of 2,245 summer scenes in the open archive (1996–2013), none covers Kazakhstan;
+RCM data are not openly distributed.
 
-**Шаг 9. Карта и материалы для сдачи — проведён (без видео, по решению команды).**
-results/map.html (клик по участку — все свойства и «где ломается»), SUBMISSION.md (7 слайдов, данные,
-инструменты, раскрытие ИИ). Видео исключено решением команды.
+**Step 9. Map and submission materials — done (no video, by team decision).**
+results/map.html (click a site for all its properties and "where it breaks"), SUBMISSION.md (7 slides, data,
+tools, AI disclosure). The video was dropped by team decision.
 
-## Сводка: где Казахстан выделяется, а где нет
+## Summary: where Kazakhstan stands out and where it does not
 
-| Слой | Выделяется? |
+| Layer | Stands out? |
 |---|---|
-| Посадочная местность (480 м и 40 м) | Да, на двух независимых наборах данных |
-| Годовой тепловой размах | Да |
-| Альбедо в марсианском диапазоне | Да |
-| Тепловая инерция по рангам | Совпадает с марсианскими площадками, но не отличается от них |
-| Общий рельеф | Нет (отдельные участки — да) |
-| Радарная шероховатость | Нет |
-| Полигоны 20–150 м | Нет (метод проверен на Даланьтане) |
+| Landing ground (480 m and 40 m) | Yes, on two independent data sets |
+| Annual temperature range | Yes |
+| Albedo in the Martian range | Yes |
+| Thermal inertia by rank | Matches the Martian landing sites, but does not differ from them |
+| Overall terrain | No (single sites do) |
+| Radar roughness | No |
+| 20–150 m polygons | No (method checked on Dalangtan) |
