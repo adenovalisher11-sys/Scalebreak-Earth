@@ -4,21 +4,52 @@ This project was made by the team [HopeMaxxxing](https://www.spaceappschallenge.
 
 ## How the work was done
 
-Places on Earth that are used for Moon and Mars training are usually chosen because they look similar to the target in pictures, and the team wanted to find out how similar they are when they are measured. One program was written that measures the same properties in the same way for four groups of places. The first group holds 9 real landing sites on Mars and 9 on the Moon, which show what landing ground on those bodies is like. The second group holds 16 places in Kazakhstan, including the two zones near Zhezkazgan and Arkalyk where Soyuz crews come down. The third group holds 10 places that are already used for training and rover tests, among them Meteor Crater, White Sands, the Atacama desert and the Qaidam basin. The fourth group holds between 40 and 200 random points (the number depends on the test) spread over eight dry regions of the world, from the Sahara and Arabia to the Gobi, Patagonia and Australia.
+Places on Earth that are used for Moon and Mars training are usually chosen because they look similar to the target in pictures, and the team wanted to find out how similar they are when they are measured. One program measures the same properties in the same way for four groups of places.
 
-A place in Kazakhstan was counted as promising for a property only when it did better than the random points, because a property that any random desert also has says nothing special about Kazakhstan. Before each test was run, the team wrote down in [PLAN.md](PLAN.md) what result would count against the idea, and the tests that failed are reported in the same way as the tests that succeeded. The properties were kept apart and were not added into a single score, since one number would hide which properties are strong and which are weak.
+| Group | What it contains | How many |
+|---|---|---|
+| Targets | Real landing sites on Mars and on the Moon | 9 on Mars and 9 on the Moon |
+| Kazakhstan | Proposed places, including the Soyuz landing zones near Zhezkazgan and Arkalyk | 16 |
+| Reference | Places already used for training and rover tests, such as Meteor Crater, White Sands, Atacama and Qaidam | 10 |
+| Controls | Random points in eight dry regions of the world, from the Sahara to Patagonia | Between 40 and 250, depending on the test |
+
+A place in Kazakhstan was counted as promising for a property only when it did better than the random points. Before each test the team wrote down in [PLAN.md](PLAN.md) what result would count against the idea, and failed tests are reported in the same way as successful ones. The properties are kept apart and are not added into one score.
 
 ## What was found
 
-The clearest result came from the Soyuz landing zones. The team took the published coordinates of 95 crewed Soyuz landings and measured the slope of the ground around each of them with the NASA NASADEM elevation map, comparing points that are 480 m apart. The median slope at the landing points was 0.12 degrees, while random points in the Kazakh steppe gave 0.29 degrees, random deserts of the world gave 0.62 degrees, the Mars landing sites gave 0.84 degrees and the Moon landing sites gave 0.88 degrees. A Mann-Whitney test gave p = 2e-10 for the difference between the landing points and the random steppe, which means a gap of this size is very unlikely to appear by chance. Because NASADEM becomes unreliable on very flat ground at shorter distances, the same comparison was repeated with laser heights from the NASA ICESat-2 satellite at a distance of 40 m. The landing points again came out flatter, with a median slope of 0.16 degrees against 0.34 degrees in random steppe, and only 0.06 percent of the measured 40 m stretches were steeper than 5 degrees.
+| What was measured | Data | Kazakhstan | Comparison | Does it stand out |
+|---|---|---|---|---|
+| Slope at the 95 Soyuz landing points, over 480 m | NASA NASADEM | 0.12° | 0.29° random steppe, 0.62° random deserts, 0.84° Mars sites, 0.88° Moon sites (p = 2e-10) | Yes |
+| Slope at the landing points, over 40 m | NASA ICESat-2 | 0.16° | 0.34° random steppe (p = 0.001) | Yes |
+| Share of 40 m stretches steeper than 5° | NASA ICESat-2 | 0.06% | 4 to 25% at US training sites | Yes |
+| Change of ground temperature over the year | NASA MODIS | 72 K | 54 K random deserts, 63 K training sites (p = 8e-6) | Yes |
+| Albedo | NASA MODIS | 0.19 | 0.13 to 0.24 at Mars landing sites, 0.31 at training sites | Yes, it is in the Mars range |
+| Salt that has taken up water | ESA Sentinel-2 | Lake Inder salt flat and the dry Aral Sea bottom | Both score above every random point | Yes, at two places |
+| Depth of craters | NASA NASADEM | Shunak keeps about a quarter of a fresh crater's depth | Fresh craters of the same gravity class on Mars | Only as old craters |
+| How fast the ground heats and cools | NASA MODIS and MGS TES | Same range as Mars landing sites | No difference from other ground (p = 0.73) | No |
+| General shape of the terrain over 32 km | NASADEM, MOLA and LOLA | Not closer than random points as a group (Mars p = 0.81, Moon p = 0.43) | Training sites also fail this test | No, except single places |
+| Difference between day and night temperature | NASA MODIS | About 31 K | Same at random points, about 90 K on Mars | No |
+| Radar roughness | ESA Sentinel-1 | No difference (p = 0.36) | Random points | No |
+| Crack patterns 20 to 150 m wide | ESA Sentinel-2 | None found (p = 0.65) | The same test finds them at Dalangtan in China (p = 0.002) | No |
 
-The temperature and brightness of the ground were measured next, with data from the NASA MODIS instrument. The ground temperature in Kazakhstan changes by about 72 K between summer and winter, while at the random points it changes by about 54 K, and the test gave p = 8e-6 for this difference. The median albedo of the Kazakh places was 0.19, which lies inside the range of 0.13 to 0.24 found at all ten Mars landing sites that were checked, while the established training sites were brighter, with a median of 0.31. The difference between day and night temperature was about 31 K, which is the same as at the random points and much smaller than on Mars, so this property did not separate Kazakhstan from other deserts.
+Some single places match the targets well even though the group as a whole does not.
 
-The search for salt that has taken up water, which on Mars marks places where water once stood, was done with images from the ESA Sentinel-2 satellite. Two places scored higher than every random point, and these were the salt flat of Lake Inder and the dry bottom of the Aral Sea. The craters of Kazakhstan were compared with fresh craters of the same size on Mars after correcting for the difference in gravity, and they turned out to be old and worn down. Shunak, the only crater where the measurement can be trusted, has kept about a quarter of the depth that a fresh crater of its size would have.
+| Place | Close to | Better than this share of random points |
+|---|---|---|
+| Chiyli crater | Flat landing plains of Mars | 99% |
+| Zhamanshin crater | Flat landing plains of Mars | 98% |
+| Balapan | Flat plains of the Moon | 99% |
+| Betpak-Dala | Flat plains of the Moon | 99% |
 
-Several tests did not show that Kazakhstan stands out. When the general shape of the terrain over 32 km was compared with the flat landing plains of Mars and the Moon, the Kazakh places as a group were not closer to the targets than the random points were. A few single places did match well, since Chiyli and Zhamanshin came closer to the Mars plains than 98 to 99 percent of the random points, and Balapan and Betpak-Dala came closer to the lunar plains than 99 percent of them. The established training sites did not beat the random points in this test either, which suggests that the overall shape of the terrain is not what makes a good analog. The rate at which the ground heats and cools placed the Kazakh places in the same range as the Mars landing sites, but this did not set them apart from other ground. Radar images from the ESA Sentinel-1 satellite showed no difference in roughness between Kazakhstan and the random points (p = 0.36). The search for crack patterns 20 to 150 m wide found nothing in Kazakhstan (p = 0.65), although the same method did find the known patterns at Dalangtan in China (p = 0.002), so the method itself was shown to work.
+When the places were ranked 1,000 times with random weights for the properties, these three stayed near the top most often.
 
-When the places were ranked 1,000 times with random weights for the properties, Balapan was among the top three in 99 percent of the runs, Chiyli in 92 percent and Betpak-Dala in 65 percent. The full tables are kept in the [`results/`](results/) folder, and the best file to begin with is [`results/property_table.md`](results/property_table.md).
+| Place | Runs in the top three |
+|---|---|
+| Balapan | 99% |
+| Chiyli | 92% |
+| Betpak-Dala | 65% |
+
+The full tables are in the [`results/`](results/) folder, and the best file to begin with is [`results/property_table.md`](results/property_table.md).
 
 ## What is in the repository
 
@@ -138,13 +169,15 @@ The challenge also lists the EMIT mineral maps. We did not use them, because the
 
 ## Limitations
 
-Earth cannot copy the low gravity, the thin air or the radiation of the Moon and Mars, and this project does not try to deal with those differences. Everything was measured from satellites, so the strength of the soil, the number of boulders and any feature smaller than about 40 m were not measured, and no member of the team has visited the places yet.
-
-The Soyuz landing zones were chosen for landings in the first place because the ground there is flat and open, so the landing test puts a number on that choice rather than discovering something new. The zones are also smoother than the real landing sites on the Moon and Mars, which means that they meet the same safety rules for landing but are not as rough as the places a spacecraft would actually land on.
-
-The crater depth can be trusted only for Shunak, because for Zhamanshin, Bigach and Chiyli the program that searches for the crater centre moved far from the position given in the catalogue, and the numbers for these three craters give only a rough idea. The ranking with random weights shows which places stay near the top whatever the priorities are, and it should not be read as a score.
-
-Balapan lies inside the former Semipalatinsk nuclear test site, and the team did not check the rules for entering it or how much contamination is left there. The coordinates of Bozzhyra and the Aktau hills were taken from tourism websites, and they are good enough for this work but are not of survey quality.
+| Limitation | What it means for the results |
+|---|---|
+| Earth has different gravity, air and radiation | The project does not try to copy these conditions |
+| Everything was measured from satellites | Soil strength, boulders and anything smaller than about 40 m were not measured, and nobody from the team has visited the places yet |
+| The Soyuz zones were picked for landings because they are flat | The landing test puts a number on that choice but does not discover it, and the zones are smoother than the real landing sites on the Moon and Mars |
+| The crater centre search moved far from the catalogue position for Zhamanshin, Bigach and Chiyli | Only the Shunak crater depth can be trusted, and the other three give a rough idea |
+| The ranking with random weights | It shows which places stay near the top and should not be read as a score |
+| Balapan is inside the former Semipalatinsk nuclear test site | Access rules and remaining contamination were not checked |
+| Coordinates of Bozzhyra and the Aktau hills come from tourism websites | They are good enough for this work but are not of survey quality |
 
 ## Use of AI
 
