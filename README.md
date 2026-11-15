@@ -66,7 +66,7 @@ rs1_index.py       checks whether the RADARSAT-1 archive covers Kazakhstan (opti
 data/              small input files kept in git, such as the Soyuz landing points
 results/           everything the scripts produce, including tables, CSV files and map.html
 report/            the report page (index.html) with its pictures and video
-PLAN.md            the research plan and the result of every step (Russian original: PLAN.ru.md)
+PLAN.md            the research plan and the result of every step
 SUBMISSION.md      slide text, the list of data and the note about AI use
 METHODOLOGY.md     a detailed description of how each test works
 ```
