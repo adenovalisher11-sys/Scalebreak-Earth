@@ -7,7 +7,7 @@ Project rule: every hypothesis has a failure criterion written down in advance, 
 the target (Mars, Moon), Kazakhstan, established analogs and random arid points.
 The whole pipeline is rerun with the command in README.md; the last full run was on 14 November, after
 the coordinates of all sites were checked (sources in `kzanalog/sites.py`).
-The Russian original of this file is [PLAN.ru.md](PLAN.ru.md).
+
 
 ## Data roles (as used)
 
